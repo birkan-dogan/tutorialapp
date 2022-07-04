@@ -16,6 +16,7 @@ const AddTutorial = () => {
             className="form-control"
             id="title"
             placeholder="Enter your title"
+            onChange={(e) => setTitle(e.target.value)}
             value={title}
             required
           />
@@ -29,6 +30,7 @@ const AddTutorial = () => {
             className="form-control"
             id="description"
             placeholder="Enter Your Description"
+            onChange={(e) => setDesc(e.target.value)}
             value={desc}
           />
         </div>
