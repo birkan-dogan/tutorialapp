@@ -16,11 +16,20 @@ const Home = () => {
   useEffect(() => {
     getTutorials();
   }, []);
-  console.log(tutorials);
+  // console.log(tutorials);
+
+  const addTutorial = async (tutorial) => {
+    try {
+      await axios.post(url, tutorial);
+    } catch (error) {
+      console.log(error);
+    }
+    getTutorials(); // read data after creating item to update Tutorial component
+  };
 
   return (
     <div>
-      <AddTutorial />
+      <AddTutorial addTutorial={addTutorial} />
       <Tutorial tutorials={tutorials} />
     </div>
   );
