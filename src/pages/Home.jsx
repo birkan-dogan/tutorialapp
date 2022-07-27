@@ -27,10 +27,19 @@ const Home = () => {
     getTutorials(); // read data after creating item to update Tutorial component
   };
 
+  const deleteTutorial = async (id) => {
+    try {
+      await axios.delete(`${url}/${id}`);
+    } catch (error) {
+      console.log(error);
+    }
+    getTutorials(); // read api after deleting item to update Tutorial component
+  };
+
   return (
     <div>
       <AddTutorial addTutorial={addTutorial} />
-      <Tutorial tutorials={tutorials} />
+      <Tutorial tutorials={tutorials} deleteTutorial={deleteTutorial} />
     </div>
   );
 };
