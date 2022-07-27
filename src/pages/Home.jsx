@@ -36,10 +36,28 @@ const Home = () => {
     getTutorials(); // read api after deleting item to update Tutorial component
   };
 
+  const editTutorial = async (id, title, desc) => {
+    const filtered = tutorials
+      .filter((tutor) => tutor.id === id)
+      .map(() => ({
+        title: title,
+        description: desc,
+      }));
+    try {
+      await axios.put(`${url}/${id}`, filtered[0]);
+    } catch (error) {
+      console.log(error);
+    }
+    getTutorials(); // read api after editing item to update Tutorial component
+  };
   return (
     <div>
       <AddTutorial addTutorial={addTutorial} />
-      <Tutorial tutorials={tutorials} deleteTutorial={deleteTutorial} />
+      <Tutorial
+        tutorials={tutorials}
+        deleteTutorial={deleteTutorial}
+        editTutorial={editTutorial}
+      />
     </div>
   );
 };
