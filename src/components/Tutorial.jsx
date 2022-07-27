@@ -1,8 +1,10 @@
 import { FaEdit } from "react-icons/fa";
 import { AiFillDelete } from "react-icons/ai";
 import EditTutorial from "./EditTutorial";
+import { useState } from "react";
 
 const Tutorial = ({ tutorials, deleteTutorial, editTutorial }) => {
+  const [editedItem, setEditedItem] = useState("");
   return (
     <div className="container mt-4">
       <table className="table table-striped">
@@ -29,6 +31,7 @@ const Tutorial = ({ tutorials, deleteTutorial, editTutorial }) => {
                     size={20}
                     className="me-3 text-warning cursor-pointer"
                     // onClick={() => editTutorial(id, title, desc)}
+                    onClick={() => setEditedItem(item)}
                   />
                   <AiFillDelete
                     size={22}
@@ -41,7 +44,7 @@ const Tutorial = ({ tutorials, deleteTutorial, editTutorial }) => {
           })}
         </tbody>
       </table>
-      <EditTutorial />
+      <EditTutorial editTutorial={editTutorial} editedItem={editedItem} />
     </div>
   );
 };

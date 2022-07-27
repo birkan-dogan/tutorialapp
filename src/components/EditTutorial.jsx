@@ -1,6 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useState } from "react";
 
-const EditTutorial = () => {
+const EditTutorial = ({ editTutorial, editedItem }) => {
+  const { id, title: newTitle, description } = editedItem;
+  const [title, setTitle] = useState(newTitle);
+  const [desc, setDesc] = useState(description);
+  const handleSave = (e) => {
+    e.preventDefault();
+    editTutorial(id, title, desc);
+  };
+  useEffect(() => {
+    // componentDidUpdate to set new title and description
+    setTitle(newTitle);
+    setDesc(description);
+  }, [newTitle, description]);
   return (
     <div className="modal" tabIndex={-1} id="edit-modal">
       <div className="modal-dialog">
@@ -14,19 +27,42 @@ const EditTutorial = () => {
               aria-label="Close"
             />
           </div>
-          <div className="modal-body">
-            <p>Modal body text goes here.</p>
+          <div className="mb-3">
+            <label htmlFor="title" className="form-label">
+              Title
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="title"
+              placeholder="Enter your title"
+              onChange={(e) => setTitle(e.target.value)}
+              value={title || ""}
+              required
+            />
           </div>
-          <div className="modal-footer">
+          <div className="mb-3">
+            <label htmlFor="description" className="form-label">
+              Description
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="description"
+              placeholder="Enter Your Description"
+              onChange={(e) => setDesc(e.target.value)}
+              value={desc || ""}
+              required
+            />
+          </div>
+          <div class="modal-footer">
             <button
               type="button"
-              className="btn btn-secondary"
+              class="btn btn-primary"
+              onClick={handleSave}
               data-bs-dismiss="modal"
             >
-              Close
-            </button>
-            <button type="button" className="btn btn-primary">
-              Save changes
+              Save
             </button>
           </div>
         </div>
