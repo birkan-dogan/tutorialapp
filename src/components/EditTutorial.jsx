@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-
 const EditTutorial = ({ editTutorial, editedItem }) => {
   const { id, title: newTitle, description } = editedItem;
   const [title, setTitle] = useState(newTitle);
@@ -55,10 +54,10 @@ const EditTutorial = ({ editTutorial, editedItem }) => {
               required
             />
           </div>
-          <div class="modal-footer">
+          <div className="modal-footer">
             <button
               type="button"
-              class="btn btn-primary"
+              className="btn btn-primary"
               onClick={handleSave}
               data-bs-dismiss="modal"
             >

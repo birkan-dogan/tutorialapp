@@ -2,6 +2,11 @@ import AddTutorial from "../components/AddTutorial";
 import Tutorial from "../components/Tutorial";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import {
+  toastErrorNotify,
+  toastSuccessNotify,
+  toastWarnNotify,
+} from "../helpers/ToastNotify";
 const url = "https://axios-example-cw.herokuapp.com/api/tutorials";
 const Home = () => {
   const [tutorials, setTutorials] = useState();
@@ -10,7 +15,7 @@ const Home = () => {
       const { data } = await axios.get(url);
       setTutorials(data);
     } catch (error) {
-      console.log(error);
+      toastErrorNotify(error.message);
     }
   };
   useEffect(() => {
@@ -21,8 +26,9 @@ const Home = () => {
   const addTutorial = async (tutorial) => {
     try {
       await axios.post(url, tutorial);
+      toastSuccessNotify("Added Successfully");
     } catch (error) {
-      console.log(error);
+      toastErrorNotify(error.message);
     }
     getTutorials(); // read data after creating item to update Tutorial component
   };
@@ -30,8 +36,9 @@ const Home = () => {
   const deleteTutorial = async (id) => {
     try {
       await axios.delete(`${url}/${id}`);
+      toastWarnNotify("Deleted Successfully");
     } catch (error) {
-      console.log(error);
+      toastErrorNotify(error.message);
     }
     getTutorials(); // read api after deleting item to update Tutorial component
   };
@@ -45,8 +52,9 @@ const Home = () => {
       }));
     try {
       await axios.put(`${url}/${id}`, filtered[0]);
+      toastWarnNotify("Updated Successfully");
     } catch (error) {
-      console.log(error);
+      toastErrorNotify(error.message);
     }
     getTutorials(); // read api after editing item to update Tutorial component
   };
